@@ -1,0 +1,21 @@
+# .dockerignore
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+*.egg-info/
+.eggs/
+.pytest_cache/
+.coverage
+htmlcov/
+.git
+.gitignore
+.qoder
+.vscode
+.idea
+*.md
+.DS_Store

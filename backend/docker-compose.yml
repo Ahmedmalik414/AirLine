@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: airline_db
+      POSTGRES_USER: airline_user
+      POSTGRES_PASSWORD: MalikAirline786
+    ports:
+      - "5432:5432"
+
+  backend:
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=True
+      - DB_NAME=airline_db
+      - DB_USER=airline_user
+      - DB_PASSWORD=MalikAirline786
+      - DB_HOST=db
+      - DB_PORT=5432
+    depends_on:
+      - db
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py seed_data &&
+             python manage.py runserver 0.0.0.0:8000"
+
+volumes:
+  postgres_data:
